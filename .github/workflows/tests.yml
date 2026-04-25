@@ -51,4 +51,4 @@ jobs:
           BASE_URL: http://localhost:8000
           LOGIN: ${{ secrets.LOGIN }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        run: pytest -v
+        run: pytest -vv -rA
