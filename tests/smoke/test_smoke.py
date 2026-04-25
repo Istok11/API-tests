@@ -114,6 +114,7 @@ def test_successful_get_meta_statuses(issue_client):
     statuses = issue_client.get_meta_statuses_for_qa()
 
     assert set(statuses.allowed_statuses).issubset(set(statuses.all_statuses))
+    assert set(statuses.allowed_statuses).issubset(set(statuses.all_statuses))
 
 
 
