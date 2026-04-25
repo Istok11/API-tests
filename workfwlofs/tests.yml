@@ -1,0 +1,54 @@
+name: API Tests
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Get tests
+      - name: Checkout tests repo
+        uses: actions/checkout@v4
+
+      # 2. Get backend
+      - name: Checkout backend repo
+        uses: actions/checkout@v4
+        with:
+          repository: YOUR_USERNAME/YOUR_BACKEND_REPO
+          path: backend-app
+
+      # 3. Up docker-compose
+      - name: Run backend
+        run: |
+          cd backend-app
+          docker compose up -d --build
+
+      # 4. Wait while API up
+      - name: Wait for API
+        run: |
+          for i in {1..20}; do
+            curl -s http://localhost:8000/docs && break
+            echo "Waiting for API..."
+            sleep 3
+          done
+
+      # 5. Python for tests
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 6. Install deps
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      # 7. Launch tests
+      - name: Run tests
+        env:
+          BASE_URL: http://localhost:8000
+          LOGIN: ${{ secrets.LOGIN }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: pytest -v
