@@ -9,7 +9,7 @@ class AuthClient(BaseClient):
         super().__init__(base_url)
         self.token = token
 
-    # -------- LOW LEVEL lOGIN --------
+    # -------- LOW LEVEL lOGIN ---------
     def login(self, request: LoginRequest) -> LoginResponse:
         response = self.post(
             "/api/auth/token",
