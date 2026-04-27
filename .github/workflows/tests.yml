@@ -20,6 +20,7 @@ jobs:
           repository: Istok11/bugtracker_mvp_plus
           path: backend-app
           token: ${{ secrets.BACKEND_TOKEN }}
+          ref: master
 
       # 3. Up docker-compose
       - name: Run backend
