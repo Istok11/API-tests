@@ -19,7 +19,7 @@ jobs:
         with:
           repository: Istok11/bugtracker_mvp_plus
           path: backend-app
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BACKEND_TOKEN }}
 
       # 3. Up docker-compose
       - name: Run backend
