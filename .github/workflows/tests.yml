@@ -17,7 +17,7 @@ jobs:
       - name: Checkout backend repo
         uses: actions/checkout@v4
         with:
-          repository: Istok11/bugtracker_mvp_plus
+          repository: Istok11/BugTrackerApp
           path: backend-app
           token: ${{ secrets.BACKEND_TOKEN }}
           ref: master
