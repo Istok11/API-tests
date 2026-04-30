@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from src.clients.auth_client import AuthClient
 from src.clients.issues_client import IssueClient
 from src.clients.users_client import UsersClient
-from src.models.auth import LoginRequest
+from src.models.auth import LoginRequest, RegisterRequest
 
 load_dotenv()
 
@@ -15,22 +15,37 @@ def base_url() -> str:
     return os.getenv("BASE_URL", "http://localhost:8000").rstrip("/")
 
 
+import os
+import pytest
+from src.clients.auth_client import AuthClient
+from src.models.auth import LoginRequest, RegisterRequest
+
 @pytest.fixture(scope="session")
 def auth_client(base_url) -> AuthClient:
     login = os.getenv("LOGIN")
     password = os.getenv("PASSWORD")
 
-    assert login is not None, "LOGIN not set in .env"
-    assert password is not None, "PASSWORD not set in .env"
+    assert login is not None, "LOGIN not set"
+    assert password is not None, "PASSWORD not set"
 
     client = AuthClient(base_url)
 
-    request = LoginRequest(
+
+    register_request = RegisterRequest(
         username=login,
         password=password
     )
 
-    client.login(request)
+
+    client.register(register_request)
+
+    # login
+    login_request = LoginRequest(
+        username=login,
+        password=password
+    )
+
+    client.login(login_request)
 
     return client
 
