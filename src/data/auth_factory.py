@@ -14,3 +14,4 @@ class RegisterFactory:
             "role": "tester"
         }
         return RegisterRequest(**data)
+# del
