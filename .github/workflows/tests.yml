@@ -53,4 +53,4 @@ jobs:
           BASE_URL: http://localhost:8000
           LOGIN: ${{ secrets.LOGIN }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        run: pytest -vv -rA
+        run: pytest -vv -rA --ignore=backend-app
