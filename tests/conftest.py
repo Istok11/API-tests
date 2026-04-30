@@ -30,10 +30,10 @@ def auth_client(base_url) -> AuthClient:
 
     client = AuthClient(base_url)
 
-
     register_request = RegisterRequest(
-        username=login,
-        password=password
+        email=login,
+        password=password,
+        role="tester"
     )
 
 
